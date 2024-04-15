@@ -94,6 +94,7 @@ def Money(cookies):
             balance = message[start_index:end_index]
             total_money += float(balance)
             balance = f"[{Good}]Done {balance} XRP£. Total money: {total_money}"
+            print(balance)
             bot.send_message(chat_id=chat_id, text=f"Your balance is: {balance} XRP£")
         elif 'You have already claimed, please wait for the next wave!' in rr:
             Bad += 1
