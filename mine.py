@@ -1,16 +1,16 @@
 import requests
 import json
 import time
-import os
+import threading
 from telegram import Bot
-from keep_alive import keep_alive
-keep_alive()
+from telegram.ext import Updater, CommandHandler
 
 total_money = 0
 Good = 0
 Bad = 0
 
-chat_id = '5308059847'
+bot_token = '6897034474:AAHnFLDpsSXJSG03oIuAs0yKF2IWf8I0tbw'
+chatid = '5308059847'
 bot = Bot(token=os.environ.get('token'))
 
 
@@ -76,7 +76,7 @@ def Money(cookies):
             'user-agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36',
             'x-requested-with': 'XMLHttpRequest',
         }
-
+ 
         params = {
             'act': 'faucet',
         }
@@ -93,13 +93,38 @@ def Money(cookies):
             end_index = message.find(" ", start_index)
             balance = message[start_index:end_index]
             total_money += float(balance)
-            balance = f"[{Good}]Done {balance} XRP£. Total money: {total_money}"
-            print(balance)
-            bot.send_message(chat_id=chat_id, text=f"Your balance is: {balance} XRP£")
+            message = f"[{Good}]Done {balance} XRP£. Total money: {total_money}"
         elif 'You have already claimed, please wait for the next wave!' in rr:
             Bad += 1
         else:
             print(f'Erorr')
 
+def continuously_run_loop():
+    while True:
+        Login()
 
-Login()
+
+def check(update, context):
+    global total_money, Good, Bad
+    message = f"Total money: {total_money}\nGood: {Good}\n"
+    context.bot.send_message(chat_id=chatid, text=message)
+    
+
+    
+def main():
+    updater = Updater(token=bot_token, use_context=True)
+    dispatcher = updater.dispatcher
+
+    check_handler = CommandHandler('check', check)
+    dispatcher.add_handler(check_handler)
+
+    updater.start_polling()
+
+    # Start the loop in a separate thread
+    loop_thread = threading.Thread(target=continuously_run_loop)
+    loop_thread.start()
+
+    updater.idle()
+    
+if __name__ == "__main__":
+    main()
