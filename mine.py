@@ -5,7 +5,8 @@ import os
 import threading
 from telegram import Bot
 from telegram.ext import Updater, CommandHandler
-
+from keep_alive import keep_alive
+keep_alive()
 total_money = 0
 Good = 0
 Bad = 0
