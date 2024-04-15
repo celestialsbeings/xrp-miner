@@ -3,6 +3,8 @@ import json
 import time
 import os
 from telegram import Bot
+from keep_alive import keep_alive
+keep_alive()
 
 total_money = 0
 Good = 0
