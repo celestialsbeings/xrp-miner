@@ -10,9 +10,8 @@ total_money = 0
 Good = 0
 Bad = 0
 
-bot_token = '6897034474:AAHnFLDpsSXJSG03oIuAs0yKF2IWf8I0tbw'
 chat_id = '5308059847'
-bot = Bot(token=bot_token)
+bot = Bot(token=os.environ.get('token'))
 
 
 def Login():
