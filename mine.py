@@ -7,19 +7,16 @@ from telegram import Bot
 from telegram.ext import Updater, CommandHandler
 from keep_alive import keep_alive
 keep_alive()
+
 total_money = 0
 Good = 0
 Bad = 0
 
 bot_token = '6897034474:AAHnFLDpsSXJSG03oIuAs0yKF2IWf8I0tbw'
 chatid = '5308059847'
-bot = Bot(token=os.environ.get('token'))
 
-
-def Login():
-    email = "celestialfromtg"
-    password = "az11002021"
-
+def Login(email, password, proxy=None):
+    time.sleep(7)
     headers = {
         'authority': 'faucetearner.org',
         'accept': 'application/json, text/javascript, */*; q=0.01',
@@ -46,21 +43,27 @@ def Login():
         'password': password,
     }
 
-    response = requests.post('https://faucetearner.org/api.php', params=params, headers=headers, json=json_data)
-    
+
+    proxies = {
+            'http': f'http://{proxy}',
+             'https': f'http://{proxy}'
+        }
+    response = requests.post('https://faucetearner.org/api.php', params=params, headers=headers, json=json_data, proxies=proxies, timeout=10)
+
+
     if "Login successful" in response.text:
         sufi = response.cookies.get_dict()
         print(f'Good Login')
         print(sufi)
-        print(f'_' *60)   
-        Money(sufi)
+        print(f'_' *60)
+        Money(sufi, proxy)
     elif "wrong username or password" in response.text:
         print(f'Bad Login')
     else:
         print(f'Error')
 
-def Money(cookies):
-    global total_money , Bad , Good
+def Money(cookies, proxy=None):
+    global total_money, Bad, Good, balance
     while True:
         time.sleep(5)
         headers = {
@@ -78,15 +81,19 @@ def Money(cookies):
             'user-agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36',
             'x-requested-with': 'XMLHttpRequest',
         }
- 
+
         params = {
             'act': 'faucet',
         }
 
         json_data = {}
 
-        rr = requests.post('https://faucetearner.org/api.php', params=params, cookies=cookies, headers=headers).text
-        
+        proxies = {
+                'http': f'http://{proxy}',
+                'https': f'http://{proxy}'
+            }
+        rr = requests.post('https://faucetearner.org/api.php', params=params, cookies=cookies, headers=headers, proxies=proxies, timeout=10).text
+    
         if 'Congratulations on receiving' in rr:
             Good += 1
             json_data = json.loads(rr)
@@ -102,14 +109,31 @@ def Money(cookies):
             print(f'Erorr')
 
 def continuously_run_loop():
-    while True:
-        Login()
+    Login("celestialfromtg","az11002021", proxy="tickets:proxyon145@191.96.181.249:12345")
+
+def continuously_run_loop2():
+    Login("shivamfromtg","az11002021", proxy="tickets:proxyon145@192.3.143.46:12345")
+
+def continuously_run_loop3():
+    Login("celestial2acc","az11002021", proxy="tickets:proxyon145@23.104.162.113:12345")
+
+def continuously_run_loop4():
+    Login("Aditya0987","aditya@60" ,proxy="tickets:proxyon145@107.174.5.149:12345")
+    
+def continuously_run_loop5():
+    Login("sidacc","az11002021", proxy="tickets:proxyon145@191.96.181.252:12345")
+    
+
 
 
 def check(update, context):
-    global total_money, Good, Bad
-    message = f"Total money: {total_money}\nGood: {Good}\n"
-    context.bot.send_message(chat_id=chatid, text=message)
+    global total_money, Good, Bad, balance
+    if Good % 5 == 0: 
+        message = f"Total money: {total_money}\nTotal account have: {Good}\nTotal Balance :{balance}"
+        context.bot.send_message(chat_id=chatid, text=message)
+    else :
+        message = f"Damn it's not going well, you see by yourself\nHits -"
+        context.bot.send_message(chat_id=chatid, text=message)
     
 
     
@@ -123,10 +147,12 @@ def main():
     updater.start_polling()
 
     # Start the loop in a separate thread
-    loop_thread = threading.Thread(target=continuously_run_loop)
-    loop_thread.start()
+    all_loops = [threading.Thread(target=continuously_run_loop),threading.Thread(target=continuously_run_loop2),threading.Thread(target=continuously_run_loop3),threading.Thread(target=continuously_run_loop4),threading.Thread(target=continuously_run_loop5)]
+
+    for loop_thread in all_loops:
+        loop_thread.start()
 
     updater.idle()
     
 if __name__ == "__main__":
-    main()
+    main() 
