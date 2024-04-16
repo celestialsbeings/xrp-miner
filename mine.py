@@ -131,9 +131,7 @@ def check(update, context):
     if Good % 5 == 0: 
         message = f"Total money: {total_money}\nTotal account have: {Good}\nTotal Balance :{balance}"
         context.bot.send_message(chat_id=chatid, text=message)
-    else :
-        message = f"Damn it's not going well, you see by yourself\nHits -"
-        context.bot.send_message(chat_id=chatid, text=message)
+
     
 
     
