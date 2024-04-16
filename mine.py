@@ -12,7 +12,7 @@ total_money = 0
 Good = 0
 Bad = 0
 
-bot_token = '6897034474:AAHnFLDpsSXJSG03oIuAs0yKF2IWf8I0tbw'
+bot_token = '6897034474:AAFnchw1PWhGfTuy3spiDbAnkUiDyrlVagA'
 chatid = '5308059847'
 
 def Login(email, password, proxy=None):
