@@ -120,9 +120,6 @@ def continuously_run_loop2():
 def continuously_run_loop3():
     Login("celestial2acc","az11002021", proxy="tickets:proxyon145@23.104.162.113:12345")
 
-def continuously_run_loop4():
-    Login("Aditya0987","aditya@60" ,proxy="tickets:proxyon145@107.174.5.149:12345")
-    
 def continuously_run_loop5():
     Login("sidacc","az11002021", proxy="tickets:proxyon145@191.96.181.252:12345")
     
@@ -131,8 +128,12 @@ def continuously_run_loop5():
 
 def check(update, context):
     global total_money, Good, Bad, balance
-    message = f"Total money: {total_money}\nTotal account have: {Good}\nTotal Balance :{balance}"
-    context.bot.send_message(chat_id=chatid, text=message)
+    if Good % 4
+        message = f"Total money: {total_money}\nTotal account have: {Good}\nTotal Balance :{balance}"
+        context.bot.send_message(chat_id=chatid, text=message)
+    else :
+        message = f"Total money: {total_money}\nTotal account have: {Good}\nTotal Balance :{balance}/nSome proxies not working"
+        context.bot.send_message(chat_id=chatid, text=message)
 
     
 
@@ -147,7 +148,7 @@ def main():
     updater.start_polling()
 
     # Start the loop in a separate thread
-    all_loops = [threading.Thread(target=continuously_run_loop),threading.Thread(target=continuously_run_loop2),threading.Thread(target=continuously_run_loop3),threading.Thread(target=continuously_run_loop4),threading.Thread(target=continuously_run_loop5)]
+    all_loops = [threading.Thread(target=continuously_run_loop),threading.Thread(target=continuously_run_loop2),threading.Thread(target=continuously_run_loop3),threading.Thread(target=continuously_run_loop5)]
 
     for loop_thread in all_loops:
         loop_thread.start()
