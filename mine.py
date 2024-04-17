@@ -8,6 +8,12 @@ from telegram.ext import Updater, CommandHandler
 from keep_alive import keep_alive
 keep_alive()
 
+
+total_money = 0
+Good = 0
+Bad = 0
+balance = 0
+
 bot_token = '6897034474:AAFnchw1PWhGfTuy3spiDbAnkUiDyrlVagA'
 chatid = '5308059847'
 # bot = Bot(token=os.environ.get('token'))
