@@ -8,12 +8,9 @@ from telegram.ext import Updater, CommandHandler
 from keep_alive import keep_alive
 keep_alive()
 
-total_money = 0
-Good = 0
-Bad = 0
-
 bot_token = '6897034474:AAFnchw1PWhGfTuy3spiDbAnkUiDyrlVagA'
 chatid = '5308059847'
+# bot = Bot(token=os.environ.get('token'))
 
 def Login(email, password, proxy=None):
     time.sleep(7)
@@ -65,7 +62,7 @@ def Login(email, password, proxy=None):
 def Money(cookies, proxy=None):
     global total_money, Bad, Good, balance
     while True:
-        time.sleep(5)
+        time.sleep(8)
         headers = {
             'authority': 'faucetearner.org',
             'accept': 'application/json, text/javascript, */*; q=0.01',
@@ -128,9 +125,8 @@ def continuously_run_loop5():
 
 def check(update, context):
     global total_money, Good, Bad, balance
-    if Good % 5 == 0: 
-        message = f"Total money: {total_money}\nTotal account have: {Good}\nTotal Balance :{balance}"
-        context.bot.send_message(chat_id=chatid, text=message)
+    message = f"Total money: {total_money}\nTotal account have: {Good}\nTotal Balance :{balance}"
+    context.bot.send_message(chat_id=chatid, text=message)
 
     
 
@@ -154,3 +150,4 @@ def main():
     
 if __name__ == "__main__":
     main() 
+
