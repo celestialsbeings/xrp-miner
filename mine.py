@@ -128,7 +128,7 @@ def continuously_run_loop5():
 
 def check(update, context):
     global total_money, Good, Bad, balance
-    if Good % 4
+    if Good % 4 :
         message = f"Total money: {total_money}\nTotal account have: {Good}\nTotal Balance :{balance}"
         context.bot.send_message(chat_id=chatid, text=message)
     else :
