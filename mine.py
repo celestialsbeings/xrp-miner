@@ -14,7 +14,7 @@ Good = 0
 Bad = 0
 balance = 0
 
-bot_token = '6897034474:AAFnchw1PWhGfTuy3spiDbAnkUiDyrlVagA'
+bot_token = '6897034474:AAFinthJOCcUGH0dWGWDM5ABquRKMj8xKeE'
 chatid = '5308059847'
 # bot = Bot(token=os.environ.get('token'))
 
