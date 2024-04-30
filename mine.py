@@ -44,10 +44,10 @@ def Login(email, password, proxy=None):
     }
 
 
-    # proxies = {
-    #         'http': f'http://{proxy}',
-    #          'https': f'http://{proxy}'
-    #     }
+     proxies = {
+             'http': f'http://{proxy}',
+              'https': f'http://{proxy}'
+         }
     response = requests.post('https://faucetearner.org/api.php', params=params, headers=headers, json=json_data, timeout=10)
 
 
@@ -87,10 +87,10 @@ def Money(cookies, proxy=None):
 
     json_data = {}
 
-    # proxies = {
-    #             'http': f'http://{proxy}',
-    #             'https': f'http://{proxy}'
-    #         }
+     proxies = {
+                 'http': f'http://{proxy}',
+                 'https': f'http://{proxy}'
+             }
     rr = requests.post('https://faucetearner.org/api.php', params=params, cookies=cookies, headers=headers, timeout=10).text
     
     if 'Congratulations on receiving' in rr:
@@ -109,17 +109,17 @@ def Money(cookies, proxy=None):
 def infiloop():
     while True:
             time.sleep(6)
-            Login("celestialfromtg","az11002021")
+            Login("celestialfromtg","az11002021","yourproxy")
             
-            Login("shivamfromtg","az11002021")
+            Login("shivamfromtg","az11002021", "yourproxy")
 
 
-            Login("celestial2acc","az11002021")
+            Login("celestial2acc","az11002021", "yourproxy")
 
-            Login("Aditya0987","aditya@60")
+            Login("Aditya0987","aditya@60","yourproxy")
             
 
-            Login("sidacc","az11002021")
+            Login("sidacc","az11002021","yourproxy")
             
 
 
