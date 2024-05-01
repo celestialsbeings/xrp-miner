@@ -6,8 +6,8 @@ import threading
 from telegram import Bot
 from telegram.ext import Updater, CommandHandler
 from keep_alive import keep_alive
-
 keep_alive()
+
 total_money = 0
 Good = 0
 Bad = 0
@@ -17,7 +17,7 @@ bot_token = '6897034474:AAEdxUezUzSvHvzXjWMZan6nUC33IZiuQL4'
 chatid = '5308059847'
 # bot = Bot(token=os.environ.get('token'))
 
-def Login(email, password, proxy=None):
+def Login(email, password):
     headers = {
         'authority': 'faucetearner.org',
         'accept': 'application/json, text/javascript, */*; q=0.01',
@@ -44,27 +44,20 @@ def Login(email, password, proxy=None):
         'password': password,
     }
 
-    if proxy:
-        proxies = {
-            'http': f'http://{proxy}',
-            'https': f'http://{proxy}'
-        }
-        response = requests.post('https://faucetearner.org/api.php', params=params, headers=headers, json=json_data, proxies=proxies, timeout=10)
-    else:
-        response = requests.post('https://faucetearner.org/api.php', params=params, headers=headers, json=json_data, timeout=10)
+    response = requests.post('https://faucetearner.org/api.php', params=params, headers=headers, json=json_data, timeout=10)
 
     if "Login successful" in response.text:
         sufi = response.cookies.get_dict()
         print(f'Good Login')
         print(sufi)
         print(f'_' *60)
-        Money(sufi, proxy)
+        Money(sufi)
     elif "wrong username or password" in response.text:
         print(f'Bad Login')
     else:
         print(f'Error')
 
-def Money(cookies, proxy=None):
+def Money(cookies):
     global total_money, Bad, Good, balance
 
     headers = {
@@ -89,14 +82,7 @@ def Money(cookies, proxy=None):
 
     json_data = {}
 
-    if proxy:
-        proxies = {
-            'http': f'http://{proxy}',
-            'https': f'http://{proxy}'
-        }
-        rr = requests.post('https://faucetearner.org/api.php', params=params, cookies=cookies, headers=headers, proxies=proxies, timeout=10).text
-    else:
-        rr = requests.post('https://faucetearner.org/api.php', params=params, cookies=cookies, headers=headers, timeout=10).text
+    rr = requests.post('https://faucetearner.org/api.php', params=params, cookies=cookies, headers=headers, timeout=10).text
 
     if 'Congratulations on receiving' in rr:
         Good += 1
@@ -114,12 +100,16 @@ def Money(cookies, proxy=None):
 
 def infiloop():
     while True:
-        time.sleep(6)
-        Login("celestialfromtg", "az11002021", "191.96.181.249:12345")
-        Login("shivamfromtg", "az11002021", "23.104.162.113:12345")
-        Login("celestial2acc", "az11002021", "107.175.38.13:12345")
-        Login("Aditya0987", "aditya@60", "191.96.181.252:12345")
-        Login("sidacc", "az11002021", "107.173.112.207:12345:")
+        time.sleep(5)
+        Login("celestialfromtg", "az11002021")
+        time.sleep(5)
+        Login("shivamfromtg", "az11002021")
+        time.sleep(5)
+        Login("celestial2acc", "az11002021")
+        time.sleep(5)
+        Login("Aditya0987", "aditya@60")
+        time.sleep(5)
+        Login("sidacc", "az11002021")
 
 def check(update, context):
     global total_money, Good, Bad, balance
