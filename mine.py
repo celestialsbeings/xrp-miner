@@ -6,6 +6,7 @@ import threading
 from telegram import Bot
 from telegram.ext import Updater, CommandHandler
 from keep_alive import keep_alive
+
 keep_alive()
 total_money = 0
 Good = 0
@@ -43,13 +44,14 @@ def Login(email, password, proxy=None):
         'password': password,
     }
 
-
-     proxies = {
-             'http': f'http://{proxy}',
-              'https': f'http://{proxy}'
-         }
-    response = requests.post('https://faucetearner.org/api.php', params=params, headers=headers, json=json_data, timeout=10)
-
+    if proxy:
+        proxies = {
+            'http': f'http://{proxy}',
+            'https': f'http://{proxy}'
+        }
+        response = requests.post('https://faucetearner.org/api.php', params=params, headers=headers, json=json_data, proxies=proxies, timeout=10)
+    else:
+        response = requests.post('https://faucetearner.org/api.php', params=params, headers=headers, json=json_data, timeout=10)
 
     if "Login successful" in response.text:
         sufi = response.cookies.get_dict()
@@ -66,72 +68,64 @@ def Money(cookies, proxy=None):
     global total_money, Bad, Good, balance
 
     headers = {
-            'authority': 'faucetearner.org',
-            'accept': 'application/json, text/javascript, */*; q=0.01',
-            'accept-language': 'ar-YE,ar;q=0.9,en-YE;q=0.8,en-US;q=0.7,en;q=0.6',
-            'origin': 'https://faucetearner.org',
-            'referer': 'https://faucetearner.org/faucet.php',
-            'sec-ch-ua': '"Not)A;Brand";v="24", "Chromium";v="116"',
-            'sec-ch-ua-mobile': '?1',
-            'sec-ch-ua-platform': '"Android"',
-            'sec-fetch-dest': 'empty',
-            'sec-fetch-mode': 'cors',
-            'sec-fetch-site': 'same-origin',
-            'user-agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36',
-            'x-requested-with': 'XMLHttpRequest',
-        }
+        'authority': 'faucetearner.org',
+        'accept': 'application/json, text/javascript, */*; q=0.01',
+        'accept-language': 'ar-YE,ar;q=0.9,en-YE;q=0.8,en-US;q=0.7,en;q=0.6',
+        'origin': 'https://faucetearner.org',
+        'referer': 'https://faucetearner.org/faucet.php',
+        'sec-ch-ua': '"Not)A;Brand";v="24", "Chromium";v="116"',
+        'sec-ch-ua-mobile': '?1',
+        'sec-ch-ua-platform': '"Android"',
+        'sec-fetch-dest': 'empty',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-site': 'same-origin',
+        'user-agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36',
+        'x-requested-with': 'XMLHttpRequest',
+    }
 
     params = {
-            'act': 'faucet',
-        }
+        'act': 'faucet',
+    }
 
     json_data = {}
 
-     proxies = {
-                 'http': f'http://{proxy}',
-                 'https': f'http://{proxy}'
-             }
-    rr = requests.post('https://faucetearner.org/api.php', params=params, cookies=cookies, headers=headers, timeout=10).text
-    
-    if 'Congratulations on receiving' in rr:
-            Good += 1
-            json_data = json.loads(rr)
-            message = json_data["message"]
-            start_index = message.find(">") + 1
-            end_index = message.find(" ", start_index)
-            balance = message[start_index:end_index]
-            total_money += float(balance)
-            message = f"[{Good}]Done {balance} XRP£. Total money: {total_money}"
-    elif 'You have already claimed, please wait for the next wave!' in rr:
-            Bad += 1
+    if proxy:
+        proxies = {
+            'http': f'http://{proxy}',
+            'https': f'http://{proxy}'
+        }
+        rr = requests.post('https://faucetearner.org/api.php', params=params, cookies=cookies, headers=headers, proxies=proxies, timeout=10).text
     else:
-            print(f'Erorr')
+        rr = requests.post('https://faucetearner.org/api.php', params=params, cookies=cookies, headers=headers, timeout=10).text
+
+    if 'Congratulations on receiving' in rr:
+        Good += 1
+        json_data = json.loads(rr)
+        message = json_data["message"]
+        start_index = message.find(">") + 1
+        end_index = message.find(" ", start_index)
+        balance = message[start_index:end_index]
+        total_money += float(balance)
+        message = f"[{Good}]Done {balance} XRP£. Total money: {total_money}"
+    elif 'You have already claimed, please wait for the next wave!' in rr:
+        Bad += 1
+    else:
+        print(f'Error')
+
 def infiloop():
     while True:
-            time.sleep(6)
-            Login("celestialfromtg","az11002021","191.96.181.249:12345:tickets:proxyon145")
-            
-            Login("shivamfromtg","az11002021", "23.104.162.113:12345:tickets:proxyon145)
-
-
-            Login("celestial2acc","az11002021", "107.175.38.13:12345:tickets:proxyon145)
-
-            Login("Aditya0987","aditya@60","191.96.181.252:12345:tickets:proxyon145")
-            
-
-            Login("sidacc","az11002021","107.173.112.207:12345:tickets:proxyon145")
-            
-
-
+        time.sleep(6)
+        Login("celestialfromtg", "az11002021", "191.96.181.249:12345:tickets:proxyon145")
+        Login("shivamfromtg", "az11002021", "23.104.162.113:12345:tickets:proxyon145")
+        Login("celestial2acc", "az11002021", "107.175.38.13:12345:tickets:proxyon145")
+        Login("Aditya0987", "aditya@60", "191.96.181.252:12345:tickets:proxyon145")
+        Login("sidacc", "az11002021", "107.173.112.207:12345:tickets:proxyon145")
 
 def check(update, context):
     global total_money, Good, Bad, balance
     message = f"Total money: {total_money}\nTotal account have: {Good}\nTotal Balance :{balance}"
     context.bot.send_message(chat_id=chatid, text=message)
 
-    
-
-    
 def main():
     updater = Updater(token=bot_token, use_context=True)
     dispatcher = updater.dispatcher
@@ -142,12 +136,10 @@ def main():
     updater.start_polling()
 
     # Start the loop in a separate thread
-    all_loops = [threading.Thread(target=infiloop)]
-
-    for loop_thread in all_loops:
-        loop_thread.start()
+    loop_thread = threading.Thread(target=infiloop)
+    loop_thread.start()
 
     updater.idle()
-    
+
 if __name__ == "__main__":
-    main() 
+    main()
