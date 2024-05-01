@@ -115,11 +115,11 @@ def Money(cookies, proxy=None):
 def infiloop():
     while True:
         time.sleep(6)
-        Login("celestialfromtg", "az11002021", "191.96.181.249:12345:tickets:proxyon145")
-        Login("shivamfromtg", "az11002021", "23.104.162.113:12345:tickets:proxyon145")
-        Login("celestial2acc", "az11002021", "107.175.38.13:12345:tickets:proxyon145")
-        Login("Aditya0987", "aditya@60", "191.96.181.252:12345:tickets:proxyon145")
-        Login("sidacc", "az11002021", "107.173.112.207:12345:tickets:proxyon145")
+        Login("celestialfromtg", "az11002021", "191.96.181.249:12345")
+        Login("shivamfromtg", "az11002021", "23.104.162.113:12345")
+        Login("celestial2acc", "az11002021", "107.175.38.13:12345")
+        Login("Aditya0987", "aditya@60", "191.96.181.252:12345")
+        Login("sidacc", "az11002021", "107.173.112.207:12345:")
 
 def check(update, context):
     global total_money, Good, Bad, balance
