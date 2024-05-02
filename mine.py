@@ -102,14 +102,6 @@ def infiloop():
     while True:
         time.sleep(5)
         Login("celestialfromtg", "az11002021")
-        time.sleep(5)
-        Login("shivamfromtg", "az11002021")
-        time.sleep(5)
-        Login("celestial2acc", "az11002021")
-        time.sleep(5)
-        Login("Aditya0987", "aditya@60")
-        time.sleep(5)
-        Login("sidacc", "az11002021")
 
 def check(update, context):
     global total_money, Good, Bad, balance
