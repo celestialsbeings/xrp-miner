@@ -101,7 +101,7 @@ def Money(cookies):
 def infiloop():
     while True:
         time.sleep(5)
-        Login("celestialfromtg", "az11002021")
+        Login("username", "pass")
 
 def check(update, context):
     global total_money, Good, Bad, balance
